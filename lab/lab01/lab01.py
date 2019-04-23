@@ -9,7 +9,7 @@ def both_positive(x, y):
     >>> both_positive(1, 1)
     True
     """
-    return x > 0 and y > 0 # You can replace this line!
+    return x > 0 and y > 0
 
 # Q4
 def sum_digits(n):
