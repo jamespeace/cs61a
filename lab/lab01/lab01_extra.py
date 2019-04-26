@@ -15,6 +15,14 @@ def falling(n, k):
     4
     """
     "*** YOUR CODE HERE ***"
+    sum = 1
+    while k > 0:
+        sum *= n
+        k  -= 1
+        n -= 1
+    return sum
+
+
 
 def double_eights(n):
     """Return true if n has two eights in a row.
@@ -32,3 +40,8 @@ def double_eights(n):
     False
     """
     "*** YOUR CODE HERE ***"
+    while n != 0:
+        if n % 100 == 88:
+            return True
+        n = n // 10
+    return False
