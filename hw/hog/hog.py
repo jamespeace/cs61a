@@ -280,6 +280,15 @@ def max_scoring_num_rolls(dice=six_sided, num_samples=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    max_average = 0.0
+    max_index = 0
+    averaged_dice = make_averaged(roll_dice, num_samples)
+    for i in range(1, 11):
+        num = averaged_dice(i, dice)
+        if num - max_average > 1e-15:
+            max_average = num
+            max_index = i
+    return max_index
     # END PROBLEM 9
 
 
