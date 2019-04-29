@@ -22,6 +22,10 @@ def roll_dice(num_rolls, dice=six_sided):
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    l = [dice() for _ in range(0,num_rolls)]
+    if 1 in l:
+        return 1
+    return sum(l)
     # END PROBLEM 1
 
 
@@ -30,9 +34,14 @@ def free_bacon(score):
 
     score:  The opponent's current score.
     """
-    assert score < 100, 'The game should be over.'
+    assert score < GOAL_SCORE, 'The game should be over.'
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    score = 2 * (score //10) - score % 10
+    if score < 1:
+        return 1
+    else:
+        return score
     # END PROBLEM 2
 
 
@@ -51,6 +60,10 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    if num_rolls is 0:
+        return free_bacon(opponent_score)
+    else:
+        return roll_dice(num_rolls, dice)
     # END PROBLEM 3
 
 
@@ -61,6 +74,9 @@ def is_swap(player_score, opponent_score):
     """
     # BEGIN PROBLEM 4
     "*** YOUR CODE HERE ***"
+    player_abs = abs((player_score//10%10) - player_score%10)
+    opponent_abs = abs((opponent_score//10%10) - opponent_score%10)
+    return player_abs == opponent_abs
     # END PROBLEM 4
 
 
@@ -100,10 +116,20 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     player = 0  # Which player is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    assert score0 < goal and score1 < goal, 'Someone has won'
+    while score0 < goal and score1 < goal:
+        if player is 0:
+            score0 += take_turn(strategy0(score0, score1), score1, dice)
+        else:
+            score1 += take_turn(strategy1(score1, score0), score0, dice)
+        if is_swap(score0, score1):
+            score0, score1 = score1, score0
+        player = other(player)
     # END PROBLEM 5
     # (note that the indentation for the problem 6 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 6
-    "*** YOUR CODE HERE ***"
+        "*** YOUR CODE HERE ***"
+        say = say(score0, score1)
     # END PROBLEM 6
     return score0, score1
 
