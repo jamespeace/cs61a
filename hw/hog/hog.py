@@ -350,7 +350,12 @@ def swap_strategy(score, opponent_score, margin=8, num_rolls=4):
     non-beneficial swap. Otherwise, it rolls NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 4  # Replace this statement
+    score += free_bacon(opponent_score)
+    if is_swap(score, opponent_score) and score < opponent_score:
+        return 0
+    if free_bacon(opponent_score) >= margin and not is_swap(score, opponent_score):
+        return 0
+    return num_rolls  # Replace this statement
     # END PROBLEM 11
 
 
