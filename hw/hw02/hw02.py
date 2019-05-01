@@ -25,7 +25,7 @@ def make_adder(n):
     >>> make_adder(1)(2)
     3
     """
-    return 'YOUR EXPRESSION HERE'
+    return lambda k: n + k
 
 def product(n, term):
     """Return the product of the first n terms in a sequence.
@@ -49,6 +49,10 @@ def product(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    sum = 1
+    for i in range(1, n + 1):
+        sum *= term(i)
+    return sum
 
 def factorial(n):
     """Return n factorial for n >= 0 by calling product.
@@ -62,6 +66,7 @@ def factorial(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    return product(n, identity)
 
 def accumulate(combiner, base, n, term):
     """Return the result of combining the first n terms in a sequence and base.
@@ -78,10 +83,14 @@ def accumulate(combiner, base, n, term):
     25
     >>> accumulate(mul, 2, 3, square)    # 2 * 1^2 * 2^2 * 3^2
     72
-    >>> accumulate(lambda x, y: x + y + 1, 2, 3, square)
-    19      #(((2 + 1^2 + 1) + 2^2 + 1) + 3^2 + 1)
+    >>> accumulate(lambda x, y: x + y + 1, 2, 3, square) #(((2 + 1^2 + 1) + 2^2 + 1) + 3^2 + 1)
+    19
     """
     "*** YOUR CODE HERE ***"
+    sum = base
+    for i in range(1, n + 1):
+        sum = combiner(sum, term(i))
+    return sum
 
 def summation_using_accumulate(n, term):
     """Returns the sum of term(1) + ... + term(n). The implementation
@@ -97,6 +106,7 @@ def summation_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(add, 0, n, term)
 
 def product_using_accumulate(n, term):
     """An implementation of product using accumulate.
@@ -111,6 +121,7 @@ def product_using_accumulate(n, term):
     True
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(mul, 1, n, term)
 
 
 
@@ -140,3 +151,4 @@ def make_repeater(f, n):
     5
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(compose1, identity, n, lambda x: f)
