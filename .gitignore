@@ -5,5 +5,4 @@ __pycache__
 .ok_storage.dir
 tmp
 ok
-tests/
 .vscode
