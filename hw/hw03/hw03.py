@@ -35,6 +35,12 @@ def has_seven(k):
     True
     """
     "*** YOUR CODE HERE ***"
+    if k == 0:
+        return False
+    elif k % 10 == 7:
+        return True
+    else:
+        return has_seven(k // 10)
 
 def pingpong(n):
     """Return the nth element of the ping-pong sequence.
@@ -68,6 +74,15 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    def helper(nth, value, positive):
+        if nth == n:
+            return value
+        if has_seven(nth) or nth % 7 == 0:
+            return helper(nth+1, value - positive, -positive)
+        else:
+            return helper(nth+1, value + positive, positive)
+
+    return helper(1, 1, 1)
 
 def accumulate(combiner, base, n, term):
     """Return the result of combining the first n terms in a sequence and base.
@@ -113,6 +128,7 @@ def taxicab(a, b):
     9
     """
     "*** YOUR CODE HERE ***"
+    return abs(street(a) - street(b)) + abs(avenue(a) - avenue(b))
 
 def squares(s):
     """Returns a new list containing square roots of the elements of the
