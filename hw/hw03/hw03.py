@@ -74,14 +74,13 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
-    def helper(nth, value, positive):
+    def helper(nth, value, addition):
         if nth == n:
             return value
-        if has_seven(nth) or nth % 7 == 0:
-            return helper(nth+1, value - positive, -positive)
+        elif has_seven(nth) or nth % 7 == 0:
+            return helper(nth+1, value - addition, -addition)
         else:
-            return helper(nth+1, value + positive, positive)
-
+            return helper(nth+1, value + addition, addition)
     return helper(1, 1, 1)
 
 def accumulate(combiner, base, n, term):
@@ -142,6 +141,13 @@ def squares(s):
     []
     """
     "*** YOUR CODE HERE ***"
+    l = []
+    from math import sqrt
+    for i in s:
+        num = round(sqrt(i))
+        if pow(num, 2) == i:
+            l += [num]
+    return l
 
 def count_change(amount):
     """Return the number of ways to make change for amount.
@@ -159,6 +165,24 @@ def count_change(amount):
     True
     """
     "*** YOUR CODE HERE ***"
+    def minpowerof2(n):
+        if n == 0:
+            return 0
+        elif n == 1:
+            return 1
+        else:
+            return 2*minpowerof2(n//2)
+    def helper(n, m):
+        """Return the biggest power of 2."""
+        if n == 0:
+            return 1
+        elif n < 0:
+            return 0
+        elif m == 0:
+            return 0
+        else:
+            return helper(n-m, m) + helper(n, minpowerof2(m-1))
+    return helper(amount, minpowerof2(amount))
 
 def print_move(origin, destination):
     """Print instructions to move a disk."""
@@ -193,6 +217,13 @@ def move_stack(n, start, end):
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
     "*** YOUR CODE HERE ***"
+    if n == 1:
+        print_move(start, end)
+    else:
+        middle = 6 - start - end
+        move_stack(n - 1, start, middle)
+        print_move(start, end)
+        move_stack(n - 1, middle, end)
 
 ###################
 # Extra Questions #
@@ -209,4 +240,4 @@ def make_anonymous_factorial():
     >>> check(HW_SOURCE_FILE, 'make_anonymous_factorial', ['Assign', 'AugAssign', 'FunctionDef', 'Recursion'])
     True
     """
-    return 'YOUR_EXPRESSION_HERE'
+    return (lambda f: lambda n: f(f, n))(lambda f, n: 1 if n == 1 else mul(n, f(f, sub(n, 1))))
