@@ -13,6 +13,9 @@ def distance(city1, city2):
     5.0
     """
     "*** YOUR CODE HERE ***"
+    x = get_lat(city1) - get_lat(city2)
+    y = get_lon(city1) - get_lon(city2)
+    return sqrt(x*x + y*y)
 
 def closer_city(lat, lon, city1, city2):
     """
@@ -29,6 +32,13 @@ def closer_city(lat, lon, city1, city2):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+    new_city = make_city('NewCity', lat, lon)
+    distance1 = distance(new_city, city1)
+    distance2 = distance(new_city, city2)
+    if distance1 > distance2:
+        return get_name(city2)
+    else:
+        return get_name(city1)
 
 def check_abstraction():
     """
@@ -121,3 +131,9 @@ def pascal(row, column):
     """
 
     "*** YOUR CODE HERE ***"
+    if column == 0:
+        return 1
+    elif row == 0:
+        return 0
+    else:
+        return pascal(row-1, column) + pascal(row-1, column-1)
