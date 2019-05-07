@@ -129,6 +129,7 @@ def best_predictor(user, restaurants, feature_fns):
     reviewed = user_reviewed_restaurants(user, restaurants)
     # BEGIN Question 8
     "*** YOUR CODE HERE ***"
+    return max([list(find_predictor(user, reviewed, fn)) for fn in feature_fns], key=lambda x: x[1])[0]
     # END Question 8
 
 
