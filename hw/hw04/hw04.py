@@ -5,6 +5,9 @@
 def tree(label, branches=[]):
     """Construct a tree with the given label value and a list of branches."""
     for branch in branches:
+        if not is_tree(branch):
+            print('DEBUG: label = ', label)
+            print('DEBUG: branch = ', branch)
         assert is_tree(branch), 'branches must be trees'
     return [label] + list(branches)
 
@@ -99,6 +102,11 @@ def replace_leaf(t, old, new):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_leaf(t) and label(t) == old:
+      l = new
+    else:
+      l = label(t)
+    return tree(l, [replace_leaf(branch, old, new) for branch in branches(t)])
 
 def prune_leaves(t, vals):
     """Return a modified copy of t with all leaves that have a label
@@ -125,6 +133,11 @@ def prune_leaves(t, vals):
       6
     """
     "*** YOUR CODE HERE ***"
+    print('DEBUG: ', t)
+    if is_leaf(t) and label(t) in vals:
+        return
+    else:
+        return tree(label(t), [x for x in [prune_leaves(branch, vals) for branch in branches(t)] if x is not None])
 
 # Mobiles
 
@@ -307,6 +320,7 @@ def mul_church(m, n):
 
 def pow_church(m, n):
     """Return the Church numeral m ** n, for Church numerals m and n.
+
 
     >>> church_to_int(pow_church(two, three))
     8
