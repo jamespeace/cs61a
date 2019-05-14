@@ -146,6 +146,8 @@ def rate_all(user, restaurants, feature_fns):
     reviewed = user_reviewed_restaurants(user, restaurants)
     # BEGIN Question 9
     "*** YOUR CODE HERE ***"
+    return dict([[restaurant_name(restaurant), user_rating(user, restaurant_name(restaurant))] if restaurant in reviewed else [restaurant_name(restaurant), predictor(restaurant)] for restaurant in restaurants])
+
     # END Question 9
 
 
@@ -158,6 +160,7 @@ def search(query, restaurants):
     """
     # BEGIN Question 10
     "*** YOUR CODE HERE ***"
+    return [restaurant for restaurant in restaurants if query in restaurant_categories(restaurant)]
     # END Question 10
 
 
