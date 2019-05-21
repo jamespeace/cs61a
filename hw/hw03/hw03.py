@@ -40,7 +40,7 @@ def has_seven(k):
     elif k % 10 == 7:
         return True
     else:
-        return has_seven(k//10)
+        return has_seven(k // 10)
 
 def pingpong(n):
     """Return the nth element of the ping-pong sequence.
