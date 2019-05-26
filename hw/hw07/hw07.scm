@@ -2,23 +2,35 @@
   (cdr (cdr s)))
 
 (define (cadr s)
-  'YOUR-CODE-HERE
+  (car (cdr s))
 )
 
 (define (caddr s)
-  'YOUR-CODE-HERE
+  (car (cddr s))
 )
 
 (define (sign x)
-  'YOUR-CODE-HERE
+  (cond 
+  ((> x 0) 1)
+  ((< x 0) -1)
+  (else 0))
 )
 
 (define (square x) (* x x))
 
 (define (pow b n)
-  'YOUR-CODE-HERE
+  (cond ((= n 0) 1)
+    ((= n 1) b)
+    ((even? n) (pow (square b) (/ n 2)))
+    (else (* (pow b (- n 1)) b))
+  )
 )
 
 (define (ordered? s)
-  'YOUR-CODE-HERE
+  (cond 
+    ((null? s) True)
+    ((null? (cdr s)) True)
+    ((> (car s) (cadr s)) False)
+    (else (ordered? (cdr s)))
+  )
 )
