@@ -99,6 +99,11 @@ def replace_leaf(t, old, new):
     True
     """
     "*** YOUR CODE HERE ***"
+    if is_leaf(t) and label(t) == old:
+        l = new
+    else:
+        l = label(t)
+    return tree(l, [replace_leaf(b, old, new) for b in branches(t)])
 
 # Mobiles
 
