@@ -2,15 +2,31 @@
 
 
 (define lst
-  'YOUR-CODE-HERE
+    (cons 
+        (cons 1 nil) 
+        (cons 2 
+            (cons 
+                (cons 3 
+                    (cons 4 nil)
+                )
+                (cons 5 nil)
+            )
+        )
+    )
 )
 
 (define (composed f g)
-  'YOUR-CODE-HERE
+    (lambda (x) (f (g x)))
 )
 
 (define (remove item lst)
-  'YOUR-CODE-HERE
+    (if (null? lst)
+        nil
+        (if (= item (car lst))
+            (remove item (cdr lst))
+            (cons (car lst) (remove item (cdr lst)))
+        )
+    )
 )
 
 
@@ -23,7 +39,22 @@
 ; expect (3 1 4 4)
 
 (define (no-repeats s)
-  'YOUR-CODE-HERE
+    (cond
+        ((null? s) s)
+        (else (cons (car s) (no-repeats (
+            filter (lambda (x) (not (= x (car s)))) (cdr s)))))
+    )
+)
+(define (in item lst)
+    (cond
+        ((null? lst) #f)
+        ((eq? (car lst) item) #t)
+        (else (in item (cdr lst)))
+    )
+)
+
+(define (no-repeats-helper x l)
+    
 )
 
 (define (substitute s old new)
