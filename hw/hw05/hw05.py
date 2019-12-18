@@ -205,6 +205,15 @@ def balanced(m):
     False
     """
     "*** YOUR CODE HERE ***"
+    if is_weight(m):
+        return True
+    elif is_mobile(m):
+        left_m = end(left(m))
+        right_m = end(right(m))
+        return balanced(left_m) and balanced(right_m) and length(left(m)) * total_weight(left_m) == length(right(m)) * total_weight(right_m)
+    else:
+        return False
+
 
 def totals_tree(m):
     """Return a tree representing the mobile with its total weight at the root.
