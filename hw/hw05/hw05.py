@@ -271,6 +271,15 @@ def make_counter():
     5
     """
     "*** YOUR CODE HERE ***"
+    l = {}
+    def helper(s):
+        if s in l:
+            l[s] += 1
+            return l[s]
+        else:
+            l[s] = 1
+            return 1
+    return helper
 
 def make_fib():
     """Returns a function that returns the next Fibonacci number
