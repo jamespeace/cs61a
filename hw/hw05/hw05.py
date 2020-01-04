@@ -244,6 +244,9 @@ def totals_tree(m):
           2
     """
     "*** YOUR CODE HERE ***"
+    if is_weight(m):
+        return tree(size(m))
+    return tree(total_weight(m), [totals_tree(b) for b in [end(left(m)), end(right(m))]])
 
 # Mutable functions in Python
 
