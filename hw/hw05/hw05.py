@@ -301,6 +301,12 @@ def make_fib():
     12
     """
     "*** YOUR CODE HERE ***"
+    n1, n2 = -1, 1
+    def helper():
+        nonlocal n1, n2
+        n1, n2 = n2, n1 + n2
+        return n2
+    return helper
 
 def make_withdraw(balance, password):
     """Return a password-protected withdraw function.
