@@ -210,6 +210,8 @@ class ThrowerAnt(Ant):
     # ADD/OVERRIDE CLASS ATTRIBUTES HERE
     food_cost = 3
     armor = 1
+    min_range = 0
+    max_range = float('inf')
 
     def nearest_bee(self, hive):
         """Return the nearest Bee in a Place that is not the HIVE, connected to
@@ -219,12 +221,26 @@ class ThrowerAnt(Ant):
         """
         # BEGIN Problem 3 and 4
         p = self.place
-        while p != hive:
-            bee = random_or_none(p.bees)
-            if bee != None:
-                break
+        bee = None
+        for _ in range(0, self.min_range):
             p = p.entrance
-        return bee
+        if self.max_range == float('inf'):
+            while p != hive:
+                bee = random_or_none(p.bees)
+                if bee != None:
+                    break
+                p = p.entrance
+            return bee
+        else:
+            for _ in range(0, self.max_range - self.min_range + 1):
+                if p == hive:
+                    print('touch hive\n')
+                    return None
+                bee = random_or_none(p.bees)
+                if bee != None:
+                    break
+                p = p.entrance
+            return bee
         # END Problem 3 and 4
 
     def throw_at(self, target):
@@ -251,7 +267,11 @@ class ShortThrower(ThrowerAnt):
     name = 'Short'
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
+    food_cost = 2
+    armor = 1
+    min_range = 0
+    max_range = 3
     # END Problem 4
 
 class LongThrower(ThrowerAnt):
@@ -260,7 +280,11 @@ class LongThrower(ThrowerAnt):
     name = 'Long'
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
+    food_cost = 2
+    armor = 1
+    min_range = 5
+    max_range = float('inf')
     # END Problem 4
 
 class FireAnt(Ant):
