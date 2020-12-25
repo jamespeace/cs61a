@@ -210,7 +210,6 @@ class ThrowerAnt(Ant):
     damage = 1
     # ADD/OVERRIDE CLASS ATTRIBUTES HERE
     food_cost = 3
-    armor = 1
     min_range = 0
     max_range = float('inf')
 
@@ -270,7 +269,6 @@ class ShortThrower(ThrowerAnt):
     # BEGIN Problem 4
     implemented = True   # Change to True to view in the GUI
     food_cost = 2
-    armor = 1
     min_range = 0
     max_range = 3
     # END Problem 4
@@ -283,7 +281,6 @@ class LongThrower(ThrowerAnt):
     # BEGIN Problem 4
     implemented = True   # Change to True to view in the GUI
     food_cost = 2
-    armor = 1
     min_range = 5
     max_range = float('inf')
     # END Problem 4
@@ -323,13 +320,13 @@ class HungryAnt(Ant):
     implemented = True   # Change to True to view in the GUI
     food_cost = 4
     time_to_digest = 3 
-    armor = 1
     # END Problem 6
 
     def __init__(self, armor=1):
         # BEGIN Problem 6
         "*** YOUR CODE HERE ***"
         self.digesting = 0
+        self.armor = armor
         # END Problem 6
 
     def eat_bee(self, bee):
@@ -358,9 +355,8 @@ class NinjaAnt(Ant):
     damage = 1
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 7
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     food_cost = 5
-    armor = 1
     blocks_path = False
     # END Problem 7
 
@@ -373,6 +369,13 @@ class NinjaAnt(Ant):
 
 # BEGIN Problem 8
 # The WallAnt class
+class WallAnt(Ant):
+    name = 'Wall'
+    implemented = True
+    food_cost = 4
+
+    def __init__(self, armor=4):
+        self.armor = armor
 # END Problem 8
 
 class BodyguardAnt(Ant):
