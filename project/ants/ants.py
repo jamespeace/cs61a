@@ -464,19 +464,27 @@ class ScubaThrower(ThrowerAnt):
 # END Problem 12
 
 # BEGIN Problem 13
-class QueenAnt(Ant):  # You should change this line
+class QueenAnt(ScubaThrower):  # You should change this line
 # END Problem 13
     """The Queen of the colony. The game is over if a bee enters her place."""
 
     name = 'Queen'
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 13
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
+    food_cost = 7
+    one_queen = True
     # END Problem 13
 
     def __init__(self, armor=1):
         # BEGIN Problem 13
         "*** YOUR CODE HERE ***"
+        ScubaThrower.__init__(armor)
+        if QueenAnt.one_queen is True:
+            self.is_true_queen = True
+            QueenAnt.one_queen = False
+        else:
+            self.is_true_queen = False
         # END Problem 13
 
     def action(self, colony):
@@ -487,6 +495,10 @@ class QueenAnt(Ant):  # You should change this line
         """
         # BEGIN Problem 13
         "*** YOUR CODE HERE ***"
+        if self.is_true_queen:
+
+        else:
+
         # END Problem 13
 
     def reduce_armor(self, amount):
@@ -495,6 +507,9 @@ class QueenAnt(Ant):  # You should change this line
         """
         # BEGIN Problem 13
         "*** YOUR CODE HERE ***"
+        self.armor -= amount
+        if self.armor <= 0:
+            bees_win()
         # END Problem 13
 
 class AntRemover(Ant):
