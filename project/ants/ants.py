@@ -69,6 +69,8 @@ class Place(object):
             # Special handling for QueenAnt
             # BEGIN Problem 13
             "*** YOUR CODE HERE ***"
+            if isinstance(insect, QueenAnt) and insect.is_true_queen is True:
+                return
             # END Problem 13
 
             # Special handling for container ants
@@ -182,6 +184,7 @@ class Ant(Insect):
     blocks_path = True
     # ADD CLASS ATTRIBUTES HERE
     is_container = False
+    is_buffered = False
 
     def __init__(self, armor=1):
         """Create an Ant with an ARMOR quantity."""
@@ -479,7 +482,7 @@ class QueenAnt(ScubaThrower):  # You should change this line
     def __init__(self, armor=1):
         # BEGIN Problem 13
         "*** YOUR CODE HERE ***"
-        ScubaThrower.__init__(armor)
+        ScubaThrower.__init__(self, armor)
         if QueenAnt.one_queen is True:
             self.is_true_queen = True
             QueenAnt.one_queen = False
@@ -496,9 +499,20 @@ class QueenAnt(ScubaThrower):  # You should change this line
         # BEGIN Problem 13
         "*** YOUR CODE HERE ***"
         if self.is_true_queen:
-
+            p = self.place.exit
+            while p is not None:
+                if p.ant:
+                    if p.ant.is_buffered is False:
+                        p.ant.damage *= 2
+                        p.ant.is_buffered = True
+                    if isinstance(p.ant, BodyguardAnt) and p.ant.contained_ant is not None and p.ant.contained_ant.is_buffered is False:
+                        p.ant.contained_ant.damage *= 2
+                        p.ant.contained_ant.is_buffered = True
+                p = p.exit
         else:
-
+            self.reduce_armor(self.armor)
+            return
+        self.throw_at(self.nearest_bee(colony.hive))
         # END Problem 13
 
     def reduce_armor(self, amount):
@@ -509,7 +523,10 @@ class QueenAnt(ScubaThrower):  # You should change this line
         "*** YOUR CODE HERE ***"
         self.armor -= amount
         if self.armor <= 0:
-            bees_win()
+            if self.is_true_queen:
+                bees_win()
+            else:
+                self.place.remove_insect(self)
         # END Problem 13
 
 class AntRemover(Ant):
