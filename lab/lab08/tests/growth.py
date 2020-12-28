@@ -5,7 +5,7 @@ test = {
     {
       'cases': [
         {
-          'answer': 'ca3b52a52f737de1594b82692c7107d1',
+          'answer': 'Theta(n)',
           'choices': [
             'Theta(log(n))',
             'Theta(n)',
@@ -13,7 +13,7 @@ test = {
             'Theta(2^n)'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'question': r"""
           What is the order of growth of `is_prime` in terms of `n`?
           def is_prime(n):
@@ -24,7 +24,7 @@ test = {
           """
         },
         {
-          'answer': 'f0e700c9308ddfeac9a7d53c3bea77d7',
+          'answer': 'Theta(n^2)',
           'choices': [
             'Theta(log(n))',
             'Theta(n)',
@@ -32,7 +32,7 @@ test = {
             'Theta(2^n)'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'question': r"""
           What is the order of growth of `bar` in terms of `n`?
           def bar(n):
@@ -50,7 +50,7 @@ test = {
           """
         },
         {
-          'answer': '4d74df1689ec204e0068a2decdb74895',
+          'answer': 'Theta(log(n))',
           'choices': [
             'Theta(log(n))',
             'Theta(n)',
@@ -58,7 +58,7 @@ test = {
             'Theta(2^n)'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'question': r"""
           What is the order of growth of `foo` in terms of `n`, where `n` is
           the length of `lst`?
