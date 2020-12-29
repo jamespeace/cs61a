@@ -8,8 +8,33 @@
   ;   ()
   ; )
 )
+
 (define (longest-increasing-subsequence lst)
-    'YOUR-CODE-HERE
+  (cond
+    ((null? lst) lst)
+    (else (car (helper (create-subs lst) 0)))
+  )
+)
+
+(define (helper lst prev)
+  (cond ((null? lst) '())
+    ((null? (cdr lst)) (list (car lst)))
+    ((> prev (length (car lst))) (append (helper (cdr lst) prev) (list (car lst))))
+    (else (append (list (car lst)) (helper (cdr lst) (length (car lst)))))
+  )
+)
+
+(define (create-subs lst)
+  (cond ((null? lst) '())
+    (else (append (list (increasing-sub lst 0)) (create-subs (cdr lst))))
+  )
+)
+
+(define (increasing-sub lst prev)
+  (cond ((null? lst) '())
+    ((> prev (car lst)) (increasing-sub (cdr lst) prev))
+    (else (append (list (car lst)) (increasing-sub (cdr lst) (car lst))))
+  )
 )
 
 (define (cadr s) (car (cdr s)))
