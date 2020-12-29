@@ -1,5 +1,12 @@
 (define (reverse lst)
-    'YOUR-CODE-HERE
+  (cond ((null? lst) '())
+    ((null? (cdr lst)) (list (car lst)))
+    (else (append (reverse (cdr lst)) (list (car lst))))
+  )
+  ; (let (helper ((lambda (l result) 
+  ;                 (if (null? l) '() (append )))))
+  ;   ()
+  ; )
 )
 (define (longest-increasing-subsequence lst)
     'YOUR-CODE-HERE
