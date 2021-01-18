@@ -121,5 +121,6 @@
 (define x^3 (make-exp 'x 3))
 
 (define (derive-exp exp var)
-  'YOUR-CODE-HERE
+  (let ((first (cadr exp)) (second (caddr exp)))
+    (make-product second (make-exp first (- second 1))))
 )
