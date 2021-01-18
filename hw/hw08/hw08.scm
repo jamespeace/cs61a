@@ -83,7 +83,13 @@
 (define (multiplicand p) (caddr p))
 
 (define (derive-sum expr var)
-  'YOUR-CODE-HERE
+  (make-sum 
+    (if (same-variable? (addend expr) var)
+      1
+      (addend expr)
+    )
+    '0
+  )
 )
 
 (define (derive-product expr var)
