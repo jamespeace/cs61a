@@ -84,17 +84,14 @@
 
 (define (derive-sum expr var)
   (make-sum 
-    (if (same-variable? (addend expr) var)
-      1
-      (addend expr)
-    )
-    '0
-  )
-)
+    (derive (addend expr) var)
+    (derive (augend expr) var)))
 
 (define (derive-product expr var)
-  'YOUR-CODE-HERE
-)
+  (let ((first (multiplier expr)) (second (multiplicand expr)))
+    (make-sum 
+      (make-product (derive first var) second)
+      (make-product (derive second var) first))))
 
 ; Exponentiations are represented as lists that start with ^.
 (define (make-exp base exponent)
