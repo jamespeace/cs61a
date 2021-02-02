@@ -110,6 +110,12 @@ class Name(Expr):
         Exception raised!
         """
         "*** YOUR CODE HERE ***"
+        if self.string in env:
+            return env[self.string]
+        elif self.string in global_env:
+            return global_env[self.string]
+        else:
+            raise NameError('Error: Can\'t find ' + self.string)
 
     def __str__(self):
         return self.string
