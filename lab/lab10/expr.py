@@ -182,7 +182,17 @@ class CallExpr(Expr):
         Number(14)
         """
         "*** YOUR CODE HERE ***"
-        return self.operator.eval(global_env).apply([i.eval(env) for i in self.operands])
+
+        try:
+            result = self.operator.eval(env).apply([i.eval(env) for i in self.operands])
+        except:
+            try:
+                result = self.operator.eval(global_env).apply([i.eval(env) for i in self.operands])
+            except:
+                raise NameError("Error: Failed to eval callexpr")
+        return result
+
+
 
     def __str__(self):
         function = str(self.operator)
@@ -293,6 +303,10 @@ class LambdaFunction(Value):
             raise TypeError("Cannot match parameters {} to arguments {}".format(
                 comma_separated(self.parameters), comma_separated(arguments)))
         "*** YOUR CODE HERE ***"
+        copy_parent = self.parent.copy()
+        for i, j in zip(self.parameters, arguments):
+            copy_parent.update({i : j})
+        return self.body.eval(copy_parent)
 
     def __str__(self):
         definition = LambdaExpr(self.parameters, self.body)
