@@ -182,6 +182,7 @@ class CallExpr(Expr):
         Number(14)
         """
         "*** YOUR CODE HERE ***"
+        return self.operator.eval(global_env).apply([i.eval(env) for i in self.operands])
 
     def __str__(self):
         function = str(self.operator)
