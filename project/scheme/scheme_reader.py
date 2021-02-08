@@ -158,11 +158,11 @@ def read_tail(src):
             # BEGIN PROBLEM 2
             "*** YOUR CODE HERE ***"
             src.remove_front()
-            first = scheme_read(src)
-            second = read_tail(src)
-            if second != nil:
+            val = scheme_read(src)
+            remain = read_tail(src)
+            if remain != nil:
                 raise SyntaxError("Error: should have only one expression after the dot.")
-            return first
+            return val
             # END PROBLEM 2
         else:
             # BEGIN PROBLEM 1
