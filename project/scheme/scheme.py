@@ -147,6 +147,13 @@ class BuiltinProcedure(Procedure):
             args = args.second
         # BEGIN PROBLEM 4
         "*** YOUR CODE HERE ***"
+        if self.use_env is True:
+            python_args.append(env)
+        try:
+            result = self.fn(*python_args)
+        except:
+            raise SchemeError('calling {0} failed. arguments: {1}'.format(self.fn, python_args))
+        return result
         # END PROBLEM 4
 
 class LambdaProcedure(Procedure):
