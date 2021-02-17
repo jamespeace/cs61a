@@ -19,9 +19,10 @@ from __future__ import print_function  # Python 2 compatibility
 
 import numbers
 
-from ucb import main, trace, interact
+from ucb import log, main, trace, interact
 from scheme_tokens import tokenize_lines, DELIMITERS
 from buffer import Buffer, InputReader, LineReader
+import logging
 
 # Pairs and Scheme lists
 
@@ -86,8 +87,7 @@ class nil(object):
     def __str__(self):
         return '()'
 
-    def __len__(self):
-        return 0
+    def __len__(self):    return 0
 
     def map(self, fn):
         return self
@@ -119,10 +119,12 @@ def scheme_read(src):
     if val == 'nil':
         # BEGIN PROBLEM 1
         "*** YOUR CODE HERE ***"
+        return nil
         # END PROBLEM 1
     elif val == '(':
         # BEGIN PROBLEM 1
         "*** YOUR CODE HERE ***"
+        return read_tail(src)
         # END PROBLEM 1
     elif val in quotes:
         # BEGIN PROBLEM 7
@@ -149,14 +151,25 @@ def read_tail(src):
         elif src.current() == ')':
             # BEGIN PROBLEM 1
             "*** YOUR CODE HERE ***"
+            src.remove_front()
+            return nil
             # END PROBLEM 1
         elif src.current() == '.':
             # BEGIN PROBLEM 2
             "*** YOUR CODE HERE ***"
+            src.remove_front()
+            val = scheme_read(src)
+            remain = read_tail(src)
+            if remain != nil:
+                raise SyntaxError("Error: should have only one expression after the dot.")
+            return val
             # END PROBLEM 2
         else:
             # BEGIN PROBLEM 1
             "*** YOUR CODE HERE ***"
+            first = scheme_read(src)
+            second = read_tail(src)
+            return Pair(first, second)
             # END PROBLEM 1
     except EOFError:
         raise SyntaxError('unexpected end of file')
