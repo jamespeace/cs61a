@@ -33,6 +33,10 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
     else:
         # BEGIN PROBLEM 5
         "*** YOUR CODE HERE ***"
+        first_eval = scheme_eval(first, env)
+        check_procedure(first_eval)
+        operands = lambda x: scheme_eval(x, env)
+        return scheme_apply(first_eval, rest.map(operands), env)
         # END PROBLEM 5
 
 def self_evaluating(expr):
