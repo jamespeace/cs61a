@@ -155,8 +155,8 @@ class BuiltinProcedure(Procedure):
             python_args.append(env)
         try:
             result = self.fn(*python_args)
-        except:
-            raise SchemeError('calling {0} failed. arguments: {1}'.format(self.fn, python_args))
+        except TypeError as e:
+            raise e
         return result
         # END PROBLEM 4
 
@@ -217,6 +217,13 @@ def do_define_form(expressions, env):
         check_form(expressions, 2, 2)
         # BEGIN PROBLEM 6
         "*** YOUR CODE HERE ***"
+        rest = expressions.second.first
+        if scheme_pairp(rest):
+            value = scheme_eval(rest, env)
+        else:
+            value = rest
+        env.define(target, value)
+        return target
         # END PROBLEM 6
     elif isinstance(target, Pair) and scheme_symbolp(target.first):
         # BEGIN PROBLEM 10
