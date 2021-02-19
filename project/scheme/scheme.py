@@ -57,7 +57,13 @@ def eval_all(expressions, env):
     """Evaluate each expression im the Scheme list EXPRESSIONS in
     environment ENV and return the value of the last."""
     # BEGIN PROBLEM 8
-    return scheme_eval(expressions.first, env)
+    result = None
+    args = expressions
+    while args is not nil:
+        arg = args.first
+        result = scheme_eval(arg, env)
+        args = args.second
+    return result
     # END PROBLEM 8
 
 ################
