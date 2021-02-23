@@ -116,6 +116,15 @@ class Frame(object):
         """
         # BEGIN PROBLEM 11
         "*** YOUR CODE HERE ***"
+        if len(formals) != len(vals):
+            raise SchemeError('Error: len of formals != len of vals.')
+        new_frame = Frame(self)
+        while (formals != nil) and (vals != nil):
+            new_frame.define(formals.first, vals.first)
+            formals = formals.second
+            vals = vals.second
+        return new_frame
+
         # END PROBLEM 11
 
 ##############
